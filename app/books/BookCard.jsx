@@ -12,7 +12,7 @@ return (
     <img src={coverImage} alt={title} style={imageStyle} />
     <div style={contentStyle}>
         <h3 style={titleStyle}>{title}</h3>
-        <p style={descriptionStyle}>{description}</p>
+        <p style={descriptionStyle} className=' line-clamp-6 '>{description}</p>
     </div>
     </div>
 );

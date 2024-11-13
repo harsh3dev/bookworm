@@ -141,7 +141,8 @@ export default function BookPage() {
     
 
     useEffect(() => {
-        const savedDom = localStorage.getItem(`dom${selectedBook[0].id}`);
+        console.log('selectedBook', selectedBook);
+        const savedDom = localStorage.getItem(`dom${selectedBook[0]?.id}`);
         if (savedDom) {
         setDom(JSON.parse(savedDom));
         }

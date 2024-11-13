@@ -273,7 +273,7 @@ export default function Page() {
                           <ArrowLeft className="w-8 h-8" />
                           <span className="sr-only">Previous book</span>
                         </motion.button>
-                        <Link href={`/book/${book.id}`}
+                        <Link href={`/books/${book.id}`}
                           className="flex items-center gap-3 px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors duration-300"
                         >
                           <span className="text-xl">Start Reading</span>
