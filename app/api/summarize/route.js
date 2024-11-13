@@ -31,15 +31,15 @@ export async function POST(req) {
       messages: [
         {
           role: 'user',
-          content: `You are generating a summary for a book titled "${book.title}", authored by ${book.author}. The book's full content is provided in HTML format.
-          Generate a concise and engaging summary of the book titled "${book.title}" by ${book.author}. The summary should capture the main themes, characters, and overall essence of the book. The summary should be suitable for someone who wants a quick overview of the story and its key elements without reading the full text.
+          content: `You are generating a summary for a book's content. The book's full content is provided in HTML format.
+          The summary should capture the main themes, characters, and overall essence of the book. The summary should be suitable for someone who wants a quick overview of the story and its key elements without reading the full text.
 
           ${book.content}.
 
           Please keep the summary between 100-150 words, focusing on the important aspects of the narrative.`
         },
       ],
-      model: 'llama3-8b-8192', // Replace with the Groq model you are using
+      model: 'llama-3.2-90b-text-preview',
       temperature: 1,
       max_tokens: 1024,
       top_p: 1,

@@ -1,19 +1,24 @@
 "use client"
-import React, {useEffect} from 'react'
-import { motion } from 'framer-motion'
-import styles from './page.module.css'
-import BookCard from './BookCard'
-import { useUser } from '@clerk/nextjs'
-import Image from 'next/image'
+import React, { useEffect } from 'react'
+import { useAuth, useUser } from '@clerk/nextjs'
+import { motion } from 'framer-motion'  
+import styles from '../page.module.css'
+import BookCard from '../BookCard'
+import { useSelector } from 'react-redux';
 import Link from 'next/link'
+
+
 
 
 const Page = () => {
     const user = useUser()
     const [books, setBooks] = React.useState([])
     const [loading, setLoading] = React.useState(false)
+    const favorites = useSelector((state) => state.favorites.favorites);
 
     useEffect(() => {
+        console.log(favorites)
+        console.log(favorites[0])
         const fetchBooks = async () => {
             try {
                 setLoading(true)
@@ -30,6 +35,13 @@ const Page = () => {
         }
         fetchBooks()
     }, [])
+
+    const session = useAuth();
+    if(session.isSignedIn === false){
+        return <div>
+            <h1>You are not logged in</h1>
+        </div>
+    }
 
 
     return (
@@ -51,10 +63,14 @@ const Page = () => {
     </div> :
         <div className={styles.main}>
             <div className='w-full h-full flex flex-col justify-start items-center '>
-            <div className={styles.grouper}>
-                <h1 className={styles.title}>Books</h1>
+            {
+                favorites.length === 0 ? <div className={styles.grouper}>
+                <h1 className={styles.title}>Saved Books</h1>
+                <h1 className='text-3xl'>No books saved</h1>
+            </div> : <div className={styles.grouper}>
+                <h1 className={styles.title}>Saved Books</h1>
                 <ul className={styles.ulGroupStyle}>
-                {books && books.map((book, i) => (
+                {favorites?.map((book, i) => (
                     <motion.li
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
@@ -64,19 +80,20 @@ const Page = () => {
                     key={i}
                     >
                     <Link
-                        href={`/books/${book.id}`}
+                        href={`/books/${book[0].id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <BookCard
-                        title={book.title}
-                        coverImage={book.image}
-                        description={book.description}
+                        title={book[0].title}
+                        coverImage={book[0].image}
+                        description={book[0].description}
                         />
                     </Link>
                     </motion.li>
                 ))}
                 </ul>
             </div>
+            }
             </div>
         </div>
     );
