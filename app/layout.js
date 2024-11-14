@@ -10,6 +10,7 @@ import {
 import Navbar from "./Navbar";
 // import SaveUserOnLogin from "./SaveUserOnLogin";
 import { ReduxProvider } from './redux/providers';
+import Script from "next/script";
 
 
 const geistSans = localFont({
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {children}
       </ReduxProvider>
+      <Script src="https://widget.cxgenie.ai/widget.js" data-aid="4a1b0274-a4da-4290-8686-caf8b2c395db" data-lang="en"></Script>
       </body>
     </html>
     </ClerkProvider>
